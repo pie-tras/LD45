@@ -15,6 +15,13 @@ public class Assets {
 	
 	public static Texture sheep;
 	
+	public static SpriteSheet tiles;
+	
+	public static Texture grass;
+	public static Texture stone;
+	public static Texture water;
+	public static Texture nothing;
+	
 	public Assets(Graphics g) {
 		
 		camera = new Camera(new Vector2f(0, 0), 0, 0, .07f, g);
@@ -23,5 +30,12 @@ public class Assets {
 		g.setScale(2);
 		
 		sheep = new Texture("sheep.png");
+		
+		tiles = new SpriteSheet("tiles.png");
+		grass = new Texture(tiles.crop(new Vector2f(0, 0), new Vector2f(16, 16)));
+		stone = new Texture(tiles.crop(new Vector2f(16, 0), new Vector2f(16, 16)));
+		water = new Texture(tiles.crop(new Vector2f(0, 16), new Vector2f(16, 16)));
+		nothing = new Texture(tiles.crop(new Vector2f(16, 16), new Vector2f(16, 16)));
+		
 	}
 }

@@ -16,11 +16,11 @@ public class GameStateManager extends GSM{
 	@Override
 	public void init() {
 		super.init();
+		new Assets(g);
 		splashState = new SplashState(g);
 		introState = new IntroState(g);
 		menuState = new MenuState(g);
 		playState = new PlayState(g);
-		new Assets(g);
 		setState(Settings.START_STATE);
 	}
 
@@ -29,7 +29,6 @@ public class GameStateManager extends GSM{
 		super.update();
 		currentState.tick();
 		currentState.render();
-		System.out.println(currentState);
 	}
 	
 	public static void setState(States state) {
