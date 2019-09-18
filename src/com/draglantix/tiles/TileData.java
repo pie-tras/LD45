@@ -3,8 +3,8 @@ package com.draglantix.tiles;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.draglantix.flare.textures.Texture;
 import com.draglantix.main.Assets;
-import com.draglantix.textures.Texture;
 
 public class TileData {
 	public static Map<Integer, TileData> tileIndex;

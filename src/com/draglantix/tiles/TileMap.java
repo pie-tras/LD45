@@ -3,7 +3,7 @@ package com.draglantix.tiles;
 import org.joml.Vector2f;
 import org.joml.Vector2i;
 
-import com.draglantix.util.Functions;
+import com.draglantix.flare.util.Functions;
 import com.draglantix.world.WorldConfig;
 
 public class TileMap {

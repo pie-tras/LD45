@@ -1,6 +1,6 @@
 package com.draglantix.states;
 
-import com.draglantix.graphics.Graphics;
+import com.draglantix.flare.graphics.Graphics;
 
 public abstract class GameState {
 

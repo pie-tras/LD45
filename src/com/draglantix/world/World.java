@@ -2,12 +2,12 @@ package com.draglantix.world;
 
 import org.joml.Vector2f;
 
-import com.draglantix.graphics.Graphics;
+import com.draglantix.flare.graphics.Graphics;
+import com.draglantix.flare.window.Window;
 import com.draglantix.main.Assets;
 import com.draglantix.tiles.TileData;
 import com.draglantix.tiles.TileMap;
 import com.draglantix.utils.DragonMath;
-import com.draglantix.window.Window;
 
 public class World {
 

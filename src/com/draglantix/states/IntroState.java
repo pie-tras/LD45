@@ -2,8 +2,8 @@ package com.draglantix.states;
 
 import org.lwjgl.glfw.GLFW;
 
-import com.draglantix.graphics.Graphics;
-import com.draglantix.window.Window;
+import com.draglantix.flare.graphics.Graphics;
+import com.draglantix.flare.window.Window;
 
 public class IntroState extends GameState {
 

@@ -1,7 +1,7 @@
 package com.draglantix.states;
 
+import com.draglantix.flare.main.GSM;
 import com.draglantix.main.Assets;
-import com.draglantix.main.GSM;
 import com.draglantix.main.Settings;
 
 public class GameStateManager extends GSM {

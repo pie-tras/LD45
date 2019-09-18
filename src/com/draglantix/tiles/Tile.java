@@ -2,9 +2,9 @@ package com.draglantix.tiles;
 
 import org.joml.Vector2f;
 
-import com.draglantix.graphics.Graphics;
-import com.draglantix.textures.Texture;
-import com.draglantix.util.Color;
+import com.draglantix.flare.graphics.Graphics;
+import com.draglantix.flare.textures.Texture;
+import com.draglantix.flare.util.Color;
 import com.draglantix.world.WorldConfig;
 
 public class Tile {

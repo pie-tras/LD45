@@ -3,10 +3,10 @@ package com.draglantix.states;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFW;
 
-import com.draglantix.graphics.Graphics;
+import com.draglantix.flare.graphics.Graphics;
+import com.draglantix.flare.util.Color;
+import com.draglantix.flare.window.Window;
 import com.draglantix.main.Assets;
-import com.draglantix.util.Color;
-import com.draglantix.window.Window;
 
 public class SplashState extends GameState {
 
