@@ -4,23 +4,25 @@ import com.draglantix.main.Assets;
 import com.draglantix.main.GSM;
 import com.draglantix.main.Settings;
 
-public class GameStateManager extends GSM{
-	
-	private static GameState currentState;
-	
-	private static SplashState splashState;
-	private static IntroState introState;
-	private static MenuState menuState; 
-	private static PlayState playState; 
-	
+public class GameStateManager extends GSM {
+
+	private GameState currentState;
+
+	private SplashState splashState;
+	private IntroState introState;
+	private MenuState menuState;
+	private PlayState playState;
+
 	@Override
 	public void init() {
 		super.init();
-		new Assets(g);
-		splashState = new SplashState(g);
-		introState = new IntroState(g);
-		menuState = new MenuState(g);
-		playState = new PlayState(g);
+		Assets.init(g);
+		
+		splashState = new SplashState(g, this);
+		introState = new IntroState(g, this);
+		menuState = new MenuState(g, this);
+		playState = new PlayState(g, this);
+		
 		setState(Settings.START_STATE);
 	}
 
@@ -30,33 +32,33 @@ public class GameStateManager extends GSM{
 		currentState.tick();
 		currentState.render();
 	}
-	
-	public static void setState(States state) {
-		if(currentState!=null)
+
+	public void setState(States state) {
+		if(currentState != null)
 			currentState.stop();
+		
 		switch(state) {
-		
 			case SPLASH:
-			currentState = splashState;
-			break;
-			
+				currentState = splashState;
+				break;
+	
 			case INTRO:
-			currentState = introState;
-			break;
-			
+				currentState = introState;
+				break;
+	
 			case MENU:
-			currentState = menuState;
-			break;
-			
+				currentState = menuState;
+				break;
+	
 			case PLAY:
-			currentState = playState;
-			break;
-			
+				currentState = playState;
+				break;
+	
 			default:
-			break;
-		
+				break;
 		}
+		
 		currentState.start();
 	}
-	
+
 }

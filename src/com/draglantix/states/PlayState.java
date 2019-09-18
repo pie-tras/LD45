@@ -5,20 +5,20 @@ import org.lwjgl.glfw.GLFW;
 
 import com.draglantix.graphics.Graphics;
 import com.draglantix.main.Assets;
+import com.draglantix.tiles.TileData;
+import com.draglantix.tiles.TileMap;
 import com.draglantix.util.Color;
 import com.draglantix.window.Window;
-import com.draglantix.world.TileLib;
-import com.draglantix.world.TileMap;
 
-public class PlayState extends GameState{
+public class PlayState extends GameState {
 
 	private Vector2f target = new Vector2f(0, 0);
-	
+
 	private TileMap map;
-	
-	public PlayState(Graphics g) {
-		super(g);
-		new TileLib();
+
+	public PlayState(Graphics g, GameStateManager gsm) {
+		super(g, gsm);
+		TileData.init();
 		map = new TileMap(new Vector2f(0, 0), g);
 	}
 
@@ -27,6 +27,7 @@ public class PlayState extends GameState{
 //		if(Window.getInput().isKeyPressed(GLFW.GLFW_KEY_SPACE)) {
 //			GameStateManager.setState(States.MENU);
 //		}
+		
 		updateCamera();
 	}
 
@@ -36,28 +37,33 @@ public class PlayState extends GameState{
 		map.render(g);
 		g.drawImage(Assets.sheep, target, new Vector2f(16, 16), new Vector2f(0, 0), new Color(255, 255, 255, 1));
 	}
-	
+
 	public void updateCamera() {
-		float speed = 10f;
+		float speed = 5f;
+		
+		Vector2f destination = new Vector2f(0, 0);
 
 		if(Window.getInput().isKeyDown(GLFW.GLFW_KEY_D)) {
-			target.x += speed;
+			destination.x += 1;
 		}
 
 		if(Window.getInput().isKeyDown(GLFW.GLFW_KEY_A)) {
-			target.x -= speed;
+			destination.x -= 1;
 		}
 
 		if(Window.getInput().isKeyDown(GLFW.GLFW_KEY_W)) {
-			target.y += speed;
+			destination.y += 1;
 		}
 
 		if(Window.getInput().isKeyDown(GLFW.GLFW_KEY_S)) {
-			target.y -= speed;
+			destination.y -= 1;
+		}
+		
+		if(destination.length() != 0) {
+			target.add(destination.normalize(speed));
 		}
 
 		Assets.camera.move(target);
 	}
 
 }
-

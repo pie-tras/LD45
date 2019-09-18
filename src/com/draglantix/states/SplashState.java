@@ -8,23 +8,23 @@ import com.draglantix.main.Assets;
 import com.draglantix.util.Color;
 import com.draglantix.window.Window;
 
-public class SplashState extends GameState{
+public class SplashState extends GameState {
 
-	public SplashState(Graphics g) {
-		super(g);
+	public SplashState(Graphics g, GameStateManager gsm) {
+		super(g, gsm);
 	}
 
 	@Override
 	public void tick() {
 		if(Window.getInput().isKeyPressed(GLFW.GLFW_KEY_SPACE)) {
-			GameStateManager.setState(States.INTRO);
+			gsm.setState(States.INTRO);
 		}
 	}
 
 	@Override
 	public void render() {
-		g.drawImage(Assets.sheep, new Vector2f(0, 0), new Vector2f(16, 16), new Vector2f(0, 0), new Color(0, 255, 255, 1));
+		g.drawImage(Assets.sheep, new Vector2f(0, 0), new Vector2f(16, 16), new Vector2f(0, 0),
+				new Color(0, 255, 255, 1));
 	}
 
 }
-
