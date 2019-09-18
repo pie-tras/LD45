@@ -5,8 +5,6 @@ import org.lwjgl.glfw.GLFW;
 
 import com.draglantix.graphics.Graphics;
 import com.draglantix.main.Assets;
-import com.draglantix.tiles.TileData;
-import com.draglantix.tiles.TileMap;
 import com.draglantix.util.Color;
 import com.draglantix.window.Window;
 
@@ -14,27 +12,22 @@ public class PlayState extends GameState {
 
 	private Vector2f target = new Vector2f(0, 0);
 
-	private TileMap map;
 
 	public PlayState(Graphics g, GameStateManager gsm) {
 		super(g, gsm);
-		TileData.init();
-		map = new TileMap(new Vector2f(0, 0), g);
+		Assets.world.init();
 	}
 
 	@Override
 	public void tick() {
-//		if(Window.getInput().isKeyPressed(GLFW.GLFW_KEY_SPACE)) {
-//			GameStateManager.setState(States.MENU);
-//		}
-		
+		Assets.world.tick();
 		updateCamera();
 	}
 
 	@Override
 	public void render() {
 		g.drawMode(g.DRAW_WORLD);
-		map.render(g);
+		Assets.world.render(g);
 		g.drawImage(Assets.sheep, target, new Vector2f(16, 16), new Vector2f(0, 0), new Color(255, 255, 255, 1));
 	}
 

@@ -7,6 +7,7 @@ import com.draglantix.graphics.Graphics;
 import com.draglantix.textures.Font;
 import com.draglantix.textures.SpriteSheet;
 import com.draglantix.textures.Texture;
+import com.draglantix.world.World;
 
 public class Assets {
 
@@ -17,10 +18,9 @@ public class Assets {
 
 	public static SpriteSheet tiles;
 
-	public static Texture grass;
-	public static Texture stone;
-	public static Texture water;
-	public static Texture nothing;
+	public static Texture grass, stone, water, nothing;
+	
+	public static World world;
 
 	public static void init(Graphics g) {
 
@@ -37,5 +37,7 @@ public class Assets {
 		water = new Texture(tiles.crop(new Vector2f(0, 16), new Vector2f(16, 16)));
 		nothing = new Texture(tiles.crop(new Vector2f(16, 16), new Vector2f(16, 16)));
 
+		world = new World();
+		
 	}
 }
