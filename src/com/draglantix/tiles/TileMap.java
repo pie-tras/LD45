@@ -9,13 +9,13 @@ import com.draglantix.world.WorldConfig;
 public class TileMap {
 
 	private Tile[][] map;
-
-	public TileMap(Vector2f mapCenter, Vector2i size) {
+	
+	public TileMap(int[][] ids, Vector2f mapCenter, Vector2i size) {
 		map = new Tile[size.x][size.y];
 
 		for(int x = 0; x < size.x; x++) {
 			for(int y = 0; y < size.y; y++) {
-				int id = Functions.rand.nextInt(3);
+				int id = ids[x][y];
 				Vector2f pos = new Vector2f((x - ((size.x / 2) - mapCenter.x)) * WorldConfig.TILE_SIZE.x,
 						(y - ((size.y / 2) - mapCenter.x)) * WorldConfig.TILE_SIZE.y);
 				Tile t = new Tile(TileData.getTile(id).getTexture(), pos, TileData.getTile(id).isSolid());

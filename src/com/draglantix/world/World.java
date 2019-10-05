@@ -3,6 +3,7 @@ package com.draglantix.world;
 import org.joml.Vector2f;
 
 import com.draglantix.flare.graphics.Graphics;
+import com.draglantix.flare.util.Reader;
 import com.draglantix.flare.window.Window;
 import com.draglantix.main.Assets;
 import com.draglantix.tiles.TileData;
@@ -19,7 +20,22 @@ public class World {
 
 	public void init() {
 		TileData.init();
-		map = new TileMap(new Vector2f(0, 0), WorldConfig.WORLD_SIZE);
+		map = new TileMap(parseTileMap("maps/map.dat"), new Vector2f(0, 0), WorldConfig.WORLD_SIZE);
+	}
+	
+	//**Screams of pain** (Needs work)
+	public static int[][] parseTileMap(String path) {
+		String raw = Reader.loadFileAsString(path);
+		String[] lines = raw.split("\n");
+		String[][] tokens = new String[lines.length][lines.length];
+		for(int i = 0; i < tokens.length)) {
+			tokens[][] = raw.split("\\s+");
+		}
+		int[] ids = new int[tokens.length];
+		for(int i = 0; i < tokens.length; i++) {
+			ids[i] = Reader.parseInt(tokens[i]);
+		}
+		return ids;
 	}
 
 	public void tick() {
