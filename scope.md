@@ -1,9 +1,9 @@
 # General
 - **Genre** Level based arcade
+- topdown, no starting weapon have to use environment
 
 # Gameplay
 - Little weapons, avoid/find new ways to kill enemies
-- topdown, no starting weapon have to use environment
 - E to interact (with buttons)
 - space to use item/bash
 - bash into enemies to knock them back
@@ -21,3 +21,4 @@
 - More traps: pitfalls, lava, poison?
 - throwable weapons, one time use
 - 2.5 d
+- maybe some cool lighting stuff?
