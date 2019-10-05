@@ -2,6 +2,7 @@ package com.draglantix.world;
 
 import org.joml.Vector2f;
 
+import com.draglantix.entites.EntityManager;
 import com.draglantix.flare.graphics.Graphics;
 import com.draglantix.flare.util.Reader;
 import com.draglantix.flare.window.Window;
@@ -37,11 +38,12 @@ public class World {
 	}
 
 	public void tick() {
-
+		EntityManager.tick();
 	}
 
 	public void render(Graphics g) {
 		renderTiles(g);
+		EntityManager.render(g);
 	}
 
 	public void renderTiles(Graphics g) {

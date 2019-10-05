@@ -2,6 +2,7 @@ package com.draglantix.main;
 
 import com.draglantix.flare.main.FlareEngine;
 import com.draglantix.states.GameStateManager;
+import com.draglantix.main.Settings;
 
 public class Game {
 

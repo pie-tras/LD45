@@ -2,6 +2,8 @@ package com.draglantix.main;
 
 import org.joml.Vector2f;
 
+import com.draglantix.entites.EntityManager;
+import com.draglantix.entites.Player;
 import com.draglantix.flare.graphics.Camera;
 import com.draglantix.flare.graphics.Graphics;
 import com.draglantix.flare.textures.Font;
@@ -21,6 +23,8 @@ public class Assets {
 	public static Texture grass, stone, water, nothing;
 	
 	public static World world;
+	
+	public static Player player;
 
 	public static void init(Graphics g) {
 
@@ -39,5 +43,7 @@ public class Assets {
 
 		world = new World();
 		
+		player = new Player(sheep, new Vector2f(0, 0), new Vector2f(16, 16));
+		EntityManager.dynamics.add(player);
 	}
 }
