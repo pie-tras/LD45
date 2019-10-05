@@ -23,17 +23,15 @@ public class World {
 		map = new TileMap(parseTileMap("maps/map.dat"), new Vector2f(0, 0), WorldConfig.WORLD_SIZE);
 	}
 	
-	//**Screams of pain** (Needs work)
 	public static int[][] parseTileMap(String path) {
 		String raw = Reader.loadFileAsString(path);
-		String[] lines = raw.split("\n");
-		String[][] tokens = new String[lines.length][lines.length];
-		for(int i = 0; i < tokens.length)) {
-			tokens[][] = raw.split("\\s+");
-		}
-		int[] ids = new int[tokens.length];
-		for(int i = 0; i < tokens.length; i++) {
-			ids[i] = Reader.parseInt(tokens[i]);
+		String[] tokens = raw.split("\\s+");
+		int size = (int) Math.sqrt(tokens.length);
+		int[][] ids = new int[size][size];
+		for(int y = 0; y < size; y++) {
+			for(int x = 0; x < size; x++) {
+				ids[x][y] = Reader.parseInt(tokens[x+y*(size)]);
+			}
 		}
 		return ids;
 	}
@@ -63,7 +61,9 @@ public class World {
 		for(int x = DragonMath.floor(Math.max(initial.x - 1, 0)); x < DragonMath.ceil(Math.min(end.x + 1, 100)); x++) {
 			for(int y = DragonMath.floor(Math.max(initial.y - 1, 0)); y < DragonMath
 					.ceil(Math.min(end.y + 1, 100)); y++) {
-				map.getTile(x, y).render(g);
+				if(x < WorldConfig.WORLD_SIZE.x && y < WorldConfig.WORLD_SIZE.y) {
+					map.getTile(x, y).render(g);
+				}
 			}
 		}
 	}

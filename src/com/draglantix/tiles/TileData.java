@@ -35,10 +35,10 @@ public class TileData {
 		water = new TileData(Assets.water, false);
 		empty = new TileData(Assets.nothing, false);
 		
-		tileIndex.put(0, grass);
-		tileIndex.put(1, stone);
-		tileIndex.put(2, water);
-		tileIndex.put(3, empty);
+		tileIndex.put(1, grass);
+		tileIndex.put(2, stone);
+		tileIndex.put(3, water);
+		tileIndex.put(4, empty);
 	}
 	
 	public static TileData getTile(int index) {

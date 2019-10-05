@@ -3,7 +3,6 @@ package com.draglantix.tiles;
 import org.joml.Vector2f;
 import org.joml.Vector2i;
 
-import com.draglantix.flare.util.Functions;
 import com.draglantix.world.WorldConfig;
 
 public class TileMap {
@@ -12,7 +11,7 @@ public class TileMap {
 	
 	public TileMap(int[][] ids, Vector2f mapCenter, Vector2i size) {
 		map = new Tile[size.x][size.y];
-
+		
 		for(int x = 0; x < size.x; x++) {
 			for(int y = 0; y < size.y; y++) {
 				int id = ids[x][y];
