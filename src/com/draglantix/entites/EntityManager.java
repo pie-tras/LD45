@@ -3,7 +3,11 @@ package com.draglantix.entites;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joml.Vector2f;
+
 import com.draglantix.flare.graphics.Graphics;
+import com.draglantix.utils.Debug;
+import com.draglantix.utils.DragonMath;
 
 public class EntityManager {
 
@@ -23,7 +27,10 @@ public class EntityManager {
 	
 	public static void render(Graphics g) {
 		for(Dynamic d: dynamics) {
-			d.render(g);
+			if(DragonMath.isOnScreen(d.getPosition(), new Vector2f(64, 64), g)) {
+				d.render(g);
+				Debug.renderBounds(d.getBounds(), g);
+			}
 		}
 	}
 	

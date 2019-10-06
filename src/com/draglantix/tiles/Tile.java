@@ -2,9 +2,11 @@ package com.draglantix.tiles;
 
 import org.joml.Vector2f;
 
+import com.draglantix.flare.collision.Polygon;
 import com.draglantix.flare.graphics.Graphics;
 import com.draglantix.flare.textures.Texture;
 import com.draglantix.flare.util.Color;
+import com.draglantix.flare.util.Functions;
 import com.draglantix.world.WorldConfig;
 
 public class Tile {
@@ -16,10 +18,15 @@ public class Tile {
 	private Vector2f rotation = new Vector2f(0, 0);
 	private Color color = new Color(255, 255, 255, 1);
 	
+	private Polygon bounds;
+	
 	public Tile(Texture texture, Vector2f position, boolean solid) {
 		this.texture = texture;
 		this.position = position;
 		this.solid = solid;
+		if(solid) {
+			bounds = Functions.generateSquareBound(position, new Vector2f(WorldConfig.TILE_SIZE.x/2, WorldConfig.TILE_SIZE.y/2), false);
+		}
 	}
 	
 	public void render(Graphics g) {
@@ -44,6 +51,18 @@ public class Tile {
 
 	public boolean isSolid() {
 		return solid;
+	}
+
+	public Polygon getBounds() {
+		return bounds;
+	}
+
+	public void setBounds(Polygon bounds) {
+		this.bounds = bounds;
+	}
+
+	public void setSolid(boolean solid) {
+		this.solid = solid;
 	}
 
 }

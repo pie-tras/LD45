@@ -1,5 +1,8 @@
 package com.draglantix.world;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joml.Vector2f;
 
 import com.draglantix.entites.EntityManager;
@@ -7,21 +10,25 @@ import com.draglantix.flare.graphics.Graphics;
 import com.draglantix.flare.util.Reader;
 import com.draglantix.flare.window.Window;
 import com.draglantix.main.Assets;
+import com.draglantix.tiles.Tile;
 import com.draglantix.tiles.TileData;
 import com.draglantix.tiles.TileMap;
+import com.draglantix.utils.Debug;
 import com.draglantix.utils.DragonMath;
 
 public class World {
 
 	private TileMap map;
 
+	public static List<Tile> activeTiles = new ArrayList<Tile>();
+	
 	public World() {
 
 	}
 
-	public void init() {
+	public void init(Graphics g) {
 		TileData.init();
-		map = new TileMap(parseTileMap("maps/map.dat"), new Vector2f(0, 0), WorldConfig.WORLD_SIZE);
+		map = new TileMap(parseTileMap("maps/map.dat"), new Vector2f(0, 0), WorldConfig.WORLD_SIZE, g);
 	}
 	
 	public static int[][] parseTileMap(String path) {
@@ -41,12 +48,8 @@ public class World {
 		EntityManager.tick();
 	}
 
-	public void render(Graphics g) {
-		renderTiles(g);
-		EntityManager.render(g);
-	}
-
-	public void renderTiles(Graphics g) {
+	private void cull(Graphics g) {
+		activeTiles.removeAll(activeTiles);
 		Vector2f initial = new Vector2f(
 				Assets.camera.getPosition().x / WorldConfig.TILE_SIZE.x / g.getScale()
 						- Window.getWidth() / 2 / WorldConfig.TILE_SIZE.x / g.getScale() + WorldConfig.WORLD_SIZE.x / 2,
@@ -64,8 +67,23 @@ public class World {
 			for(int y = DragonMath.floor(Math.max(initial.y - 1, 0)); y < DragonMath
 					.ceil(Math.min(end.y + 1, 100)); y++) {
 				if(x < WorldConfig.WORLD_SIZE.x && y < WorldConfig.WORLD_SIZE.y) {
-					map.getTile(x, y).render(g);
+					activeTiles.add(map.getTile(x, y));
 				}
+			}
+		}
+	}
+
+	public void render(Graphics g) {
+		cull(g);
+		renderTiles(g);
+		EntityManager.render(g);
+	}
+
+	public void renderTiles(Graphics g) {
+		for(Tile t: activeTiles) {
+			t.render(g);
+			if(t.getBounds() != null) {
+				Debug.renderBounds(t.getBounds(), g);
 			}
 		}
 	}

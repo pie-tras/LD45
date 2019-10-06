@@ -32,7 +32,7 @@ public class TileData {
 		
 		grass = new TileData(Assets.grass, false);
 		stone = new TileData(Assets.stone, false);
-		water = new TileData(Assets.water, false);
+		water = new TileData(Assets.water, true);
 		empty = new TileData(Assets.nothing, false);
 		
 		tileIndex.put(1, grass);

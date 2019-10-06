@@ -8,11 +8,11 @@ import com.draglantix.flare.window.Window;
 
 public class Player extends Dynamic{
 
-	private float speed = 5f;
 	private Vector2f destination = new Vector2f(0, 0);
 	
 	public Player(Texture texture, Vector2f position, Vector2f scale) {
 		super(texture, position, scale);
+		setSpeed(5f);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class Player extends Dynamic{
 		}
 		
 		if(destination.length() != 0) {
-			position.add(destination.normalize(speed));
+			move(destination.normalize(speed));
 		}	
 	}
 	

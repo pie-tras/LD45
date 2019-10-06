@@ -3,13 +3,14 @@ package com.draglantix.tiles;
 import org.joml.Vector2f;
 import org.joml.Vector2i;
 
+import com.draglantix.flare.graphics.Graphics;
 import com.draglantix.world.WorldConfig;
 
 public class TileMap {
 
 	private Tile[][] map;
-	
-	public TileMap(int[][] ids, Vector2f mapCenter, Vector2i size) {
+
+	public TileMap(int[][] ids, Vector2f mapCenter, Vector2i size, Graphics g) {
 		map = new Tile[size.x][size.y];
 		
 		for(int x = 0; x < size.x; x++) {
