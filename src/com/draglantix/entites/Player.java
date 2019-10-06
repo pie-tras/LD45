@@ -12,7 +12,7 @@ public class Player extends Dynamic{
 	
 	public Player(Texture texture, Vector2f position, Vector2f scale) {
 		super(texture, position, scale);
-		setSpeed(5f);
+		setSpeed(0.5f);
 	}
 
 	@Override
@@ -40,7 +40,15 @@ public class Player extends Dynamic{
 		
 		if(destination.length() != 0) {
 			move(destination.normalize(speed), true);
-		}	
+		}
+		
+		if(Window.getInput().isKeyPressed(GLFW.GLFW_KEY_J)) {
+			setSpeed(1.5f);
+		}
+		
+		if(Window.getInput().isKeyReleased(GLFW.GLFW_KEY_J)) {
+			setSpeed(0.5f);
+		}
 	}
 	
 }

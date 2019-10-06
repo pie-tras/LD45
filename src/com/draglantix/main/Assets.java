@@ -23,6 +23,8 @@ public class Assets {
 	public static World world;
 	
 	public static Texture debug;
+	
+	public static Texture border, fog;
 
 	public static void init(Graphics g) {
 
@@ -42,5 +44,8 @@ public class Assets {
 		world = new World();
 		
 		debug = new Texture("debug.png");
+		
+		border = new Texture("border.png");
+		fog = new Texture("fog.png");
 	}
 }
