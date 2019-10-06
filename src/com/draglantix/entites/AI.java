@@ -11,7 +11,7 @@ public class AI {
 	}
 	
 	public void wander() {
-		//dynamic.move(new Vector2f(1, 1));
+		dynamic.move(new Vector2f(1, 1), true);
 	}
 	
 }

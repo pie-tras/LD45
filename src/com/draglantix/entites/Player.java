@@ -39,7 +39,7 @@ public class Player extends Dynamic{
 		}
 		
 		if(destination.length() != 0) {
-			move(destination.normalize(speed));
+			move(destination.normalize(speed), true);
 		}	
 	}
 	

@@ -4,6 +4,7 @@ import org.joml.Vector2f;
 import org.joml.Vector2i;
 
 import com.draglantix.flare.graphics.Graphics;
+import com.draglantix.world.World;
 import com.draglantix.world.WorldConfig;
 
 public class TileMap {
@@ -20,6 +21,8 @@ public class TileMap {
 						(y - ((size.y / 2) - mapCenter.x)) * WorldConfig.TILE_SIZE.y);
 				Tile t = new Tile(TileData.getTile(id).getTexture(), pos, TileData.getTile(id).isSolid());
 				map[x][y] = t;
+				if(t.isSolid())
+					World.boundingTiles.add(t);
 			}
 		}
 	}

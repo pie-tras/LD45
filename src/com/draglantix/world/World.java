@@ -21,6 +21,7 @@ public class World {
 	private TileMap map;
 
 	public static List<Tile> activeTiles = new ArrayList<Tile>();
+	public static List<Tile> boundingTiles = new ArrayList<Tile>();
 	
 	public World() {
 
@@ -63,9 +64,9 @@ public class World {
 						+ Window.getHeight() / 2 / WorldConfig.TILE_SIZE.y / g.getScale()
 						+ WorldConfig.WORLD_SIZE.y / 2);
 
-		for(int x = DragonMath.floor(Math.max(initial.x - 1, 0)); x < DragonMath.ceil(Math.min(end.x + 1, 100)); x++) {
+		for(int x = DragonMath.floor(Math.max(initial.x - 1, 0)); x < DragonMath.ceil(Math.min(end.x + 1, WorldConfig.WORLD_SIZE.x)); x++) {
 			for(int y = DragonMath.floor(Math.max(initial.y - 1, 0)); y < DragonMath
-					.ceil(Math.min(end.y + 1, 100)); y++) {
+					.ceil(Math.min(end.y + 1, WorldConfig.WORLD_SIZE.y)); y++) {
 				if(x < WorldConfig.WORLD_SIZE.x && y < WorldConfig.WORLD_SIZE.y) {
 					activeTiles.add(map.getTile(x, y));
 				}

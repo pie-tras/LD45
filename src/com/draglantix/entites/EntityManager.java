@@ -30,6 +30,9 @@ public class EntityManager {
 			if(DragonMath.isOnScreen(d.getPosition(), new Vector2f(64, 64), g)) {
 				d.render(g);
 				Debug.renderBounds(d.getBounds(), g);
+				d.setOnScreen(true);
+			}else {
+				d.setOnScreen(false);
 			}
 		}
 	}

@@ -36,14 +36,16 @@ public abstract class Dynamic extends Entity{
 		return health > 0f;
 	}
 	
-	private void checkForCollisions() {
+	private void checkForCollisions(Vector2f dir) {
 		if(bounds.getIsMoveable()) {
 			for(Dynamic entity : EntityManager.dynamics) {
 				if(!this.equals(entity) && entity.getBounds() != null) {
-					bounds.add(Collisions.testCollision(bounds, entity.getBounds()));
+					Vector2f force = Collisions.testCollision(bounds, entity.getBounds());
+					bounds.add(force);
+					
 				}
 			}
-			for(Tile tile : World.activeTiles) {
+			for(Tile tile : World.boundingTiles) {
 				if(tile.getBounds() != null) {
 					bounds.add(Collisions.testCollision(bounds, tile.getBounds()));
 				}
@@ -51,10 +53,11 @@ public abstract class Dynamic extends Entity{
 		}
 	}
 
-	public void move(Vector2f dir) {
+	public void move(Vector2f dir, boolean checkCollide) {
 		if(bounds != null) {
 			bounds.add(dir);
-			checkForCollisions();
+			if(checkCollide)
+				checkForCollisions(dir);
 			position.set(bounds.getPosition());
 		} else {
 			position.add(dir);
