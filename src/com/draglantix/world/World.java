@@ -39,7 +39,7 @@ public class World {
 		int[][] ids = new int[size][size];
 		for(int y = 0; y < size; y++) {
 			for(int x = 0; x < size; x++) {
-				ids[x][y] = Reader.parseInt(tokens[x+y*(size)]);
+				ids[x][y] = Reader.parseInt(tokens[x+(y*(size))]);
 			}
 		}
 		return ids;
@@ -54,13 +54,13 @@ public class World {
 		Vector2f initial = new Vector2f(
 				Assets.camera.getPosition().x / WorldConfig.TILE_SIZE.x / g.getScale()
 						- Window.getWidth() / 2 / WorldConfig.TILE_SIZE.x / g.getScale() + WorldConfig.WORLD_SIZE.x / 2,
-				Assets.camera.getPosition().y / WorldConfig.TILE_SIZE.y / g.getScale()
+				-Assets.camera.getPosition().y / WorldConfig.TILE_SIZE.y / g.getScale()
 						- Window.getHeight() / 2 / WorldConfig.TILE_SIZE.y / g.getScale()
 						+ WorldConfig.WORLD_SIZE.y / 2);
 		Vector2f end = new Vector2f(
 				Assets.camera.getPosition().x / WorldConfig.TILE_SIZE.x / g.getScale()
 						+ Window.getWidth() / 2 / WorldConfig.TILE_SIZE.x / g.getScale() + WorldConfig.WORLD_SIZE.x / 2,
-				Assets.camera.getPosition().y / WorldConfig.TILE_SIZE.y / g.getScale()
+				-Assets.camera.getPosition().y / WorldConfig.TILE_SIZE.y / g.getScale()
 						+ Window.getHeight() / 2 / WorldConfig.TILE_SIZE.y / g.getScale()
 						+ WorldConfig.WORLD_SIZE.y / 2);
 

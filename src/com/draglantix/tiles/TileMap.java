@@ -18,7 +18,7 @@ public class TileMap {
 			for(int y = 0; y < size.y; y++) {
 				int id = ids[x][y];
 				Vector2f pos = new Vector2f((x - ((size.x / 2) - mapCenter.x)) * WorldConfig.TILE_SIZE.x,
-						(y - ((size.y / 2) - mapCenter.x)) * WorldConfig.TILE_SIZE.y);
+						(-y + ((size.y / 2) + mapCenter.x)) * WorldConfig.TILE_SIZE.y);
 				Tile t = new Tile(TileData.getTile(id).getTexture(), pos, TileData.getTile(id).isSolid());
 				map[x][y] = t;
 				if(t.isSolid())

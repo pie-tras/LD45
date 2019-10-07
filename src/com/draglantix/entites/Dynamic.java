@@ -2,6 +2,7 @@ package com.draglantix.entites;
 
 import org.joml.Vector2f;
 
+import com.draglantix.flare.audio.AudioMaster;
 import com.draglantix.flare.audio.Source;
 import com.draglantix.flare.collision.Collisions;
 import com.draglantix.flare.collision.Polygon;
@@ -22,7 +23,9 @@ public abstract class Dynamic extends Entity{
 	
 	public Dynamic(Texture texture, Vector2f position, Vector2f scale) {
 		super(texture, position, scale);
-		source = new Source(10, 10);
+		source = new Source(1.5f, 10f, 0);
+		source.setPosition(this.position);
+		AudioMaster.sources.add(source);
 		this.bounds = Functions.generateSquareBound(position, new Vector2f(scale.x/2, scale.y/2), true);
 	}
 	
