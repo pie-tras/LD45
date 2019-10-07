@@ -9,6 +9,6 @@ public class Settings {
 	public static final String WINDOW_TITLE = "Ethuzhi v" + VERSION;
 	public static final boolean DEBUG = true;
 
-	public static final States START_STATE = States.INTRO;
+	public static final States START_STATE = States.PLAY;
 
 }

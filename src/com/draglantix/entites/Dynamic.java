@@ -6,6 +6,7 @@ import com.draglantix.flare.audio.AudioMaster;
 import com.draglantix.flare.audio.Source;
 import com.draglantix.flare.collision.Collisions;
 import com.draglantix.flare.collision.Polygon;
+import com.draglantix.flare.textures.Animation;
 import com.draglantix.flare.textures.Texture;
 import com.draglantix.flare.util.Functions;
 import com.draglantix.tiles.Tile;
@@ -21,6 +22,8 @@ public abstract class Dynamic extends Entity{
 
 	protected Polygon bounds;
 	
+	protected Animation animation = null;
+	
 	public Dynamic(Texture texture, Vector2f position, Vector2f scale) {
 		super(texture, position, scale);
 		source = new Source(1.5f, 10f, 0);
@@ -29,8 +32,20 @@ public abstract class Dynamic extends Entity{
 		this.bounds = Functions.generateSquareBound(position, new Vector2f(scale.x/2, scale.y/2), true);
 	}
 	
+	public Dynamic(Animation animation, Vector2f position, Vector2f scale, Vector2f custom) {
+		super(animation.getTexture(), position, scale);
+		this.animation = animation;
+		source = new Source(1.5f, 10f, 0);
+		source.setPosition(this.position);
+		AudioMaster.sources.add(source);
+		this.bounds = Functions.generateSquareBound(position, new Vector2f(scale.x/2 - custom.x, scale.y/2 - custom.y), true);
+	}
+	
 	@Override
 	public void tick() {
+		if(animation != null) {
+			this.texture = animation.getTexture();
+		}
 		source.setPosition(position);
 		alive = checkLiving();
 	}
@@ -45,12 +60,12 @@ public abstract class Dynamic extends Entity{
 				if(!this.equals(entity) && entity.getBounds() != null) {
 					Vector2f force = Collisions.testCollision(bounds, entity.getBounds());
 					bounds.add(force);
-					
 				}
 			}
 			for(Tile tile : World.boundingTiles) {
 				if(tile.getBounds() != null) {
-					bounds.add(Collisions.testCollision(bounds, tile.getBounds()));
+					Vector2f force = Collisions.testCollision(bounds, tile.getBounds());
+					bounds.add(force);
 				}
 			}
 		}
@@ -78,5 +93,13 @@ public abstract class Dynamic extends Entity{
 
 	public void setSpeed(float speed) {
 		this.speed = speed;
+	}
+	
+	public float getHealth() {
+		return health;
+	}
+
+	public void setHealth(float health) {
+		this.health = health;
 	}
 }

@@ -41,10 +41,20 @@ public class Assets {
 	
 	public static Source musicSource;
 	
-	public static Texture title, selector;
+	public static Texture title, selector, titlecampfire;
 
 	public static SpriteSheet fire;
 	public static Animation fireAnim;
+	
+	public static SpriteSheet psID, psIU, psIL, psIR, psD, psU, psL, psR;
+	public static SpriteSheet enID, enIU, enIL, enIR, enD, enU, enL, enR;
+	public static Animation IplayerLAnim, IplayerRAnim, IplayerUAnim, IplayerDAnim,
+							playerLAnim, playerRAnim, playerUAnim, playerDAnim,
+							playerLAnimS, playerRAnimS, playerUAnimS, playerDAnimS,
+							IenemyLAnim, IenemyRAnim, IenemyUAnim, IenemyDAnim,
+							enemyLAnim, enemyRAnim, enemyUAnim, enemyDAnim;
+	
+	public static Texture bar;
 	
 	public static void init(Graphics g) {
 
@@ -109,5 +119,54 @@ public class Assets {
 		
 		fire = new SpriteSheet("textures/fire.png");
 		fireAnim = new Animation(3, 3, 32, 20, fire, 7, true);
+		
+		titlecampfire = new Texture("textures/titlecampfire.png");
+		
+		psID = new SpriteSheet("textures/player/playerID.png");
+		psIU = new SpriteSheet("textures/player/playerIU.png");
+		psIL = new SpriteSheet("textures/player/playerIL.png");
+		psIR = new SpriteSheet("textures/player/playerIR.png");
+
+		psD = new SpriteSheet("textures/player/playerD.png");
+		psU = new SpriteSheet("textures/player/playerU.png");
+		psL = new SpriteSheet("textures/player/playerL.png");
+		psR = new SpriteSheet("textures/player/playerR.png");
+		
+		IplayerDAnim = new Animation(2, 2, 16, 2, psID, 4, true);
+		IplayerUAnim = new Animation(2, 2, 16, 2, psIU, 4, true);
+		IplayerLAnim = new Animation(2, 2, 16, 2, psIL, 4, true);
+		IplayerRAnim = new Animation(2, 2, 16, 2, psIR, 4, true);
+
+		playerDAnim = new Animation(2, 2, 16, 6, psD, 4, true);
+		playerUAnim = new Animation(2, 2, 16, 6, psU, 4, true);
+		playerLAnim = new Animation(2, 2, 16, 6, psL, 4, true);
+		playerRAnim = new Animation(2, 2, 16, 6, psR, 4, true);
+		
+		playerDAnimS = new Animation(2, 2, 16, 12, psD, 4, true);
+		playerUAnimS = new Animation(2, 2, 16, 12, psU, 4, true);
+		playerLAnimS = new Animation(2, 2, 16, 12, psL, 4, true);
+		playerRAnimS = new Animation(2, 2, 16, 12, psR, 4, true);
+		
+		enID = new SpriteSheet("textures/enemy/enemyID.png");
+		enIU = new SpriteSheet("textures/enemy/enemyIU.png");
+		enIL = new SpriteSheet("textures/enemy/enemyIL.png");
+		enIR = new SpriteSheet("textures/enemy/enemyIR.png");
+
+		enD = new SpriteSheet("textures/enemy/enemyD.png");
+		enU = new SpriteSheet("textures/enemy/enemyU.png");
+		enL = new SpriteSheet("textures/enemy/enemyL.png");
+		enR = new SpriteSheet("textures/enemy/enemyR.png");
+		
+		IenemyDAnim = new Animation(2, 2, 16, 2, enID, 4, true);
+		IenemyUAnim = new Animation(2, 2, 16, 2, enIU, 4, true);
+		IenemyLAnim = new Animation(2, 2, 16, 2, enIL, 4, true);
+		IenemyRAnim = new Animation(2, 2, 16, 2, enIR, 4, true);
+
+		enemyDAnim = new Animation(2, 2, 16, 12, enD, 4, true);
+		enemyUAnim = new Animation(2, 2, 16, 12, enU, 4, true);
+		enemyLAnim = new Animation(2, 2, 16, 12, enL, 4, true);
+		enemyRAnim = new Animation(2, 2, 16, 12, enR, 4, true);
+		
+		bar = new Texture("textures/bar.png");
 	}
 }

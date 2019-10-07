@@ -18,7 +18,7 @@ public class IntroState extends GameState {
 
 	public IntroState(Graphics g, GameStateManager gsm) {
 		super(g, gsm);
-		//Assets.musicSource.play(Assets.darkloop);
+		Assets.musicSource.play(Assets.darkloop);
 	}
 
 	@Override

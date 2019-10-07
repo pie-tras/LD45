@@ -1,14 +1,21 @@
 package com.draglantix.states;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joml.Vector2f;
 
 import com.draglantix.entites.EntityManager;
+import com.draglantix.entites.Ethuzhi;
 import com.draglantix.entites.Player;
+import com.draglantix.entites.WoodItem;
 import com.draglantix.flare.audio.AudioMaster;
 import com.draglantix.flare.audio.Source;
 import com.draglantix.flare.graphics.Graphics;
 import com.draglantix.flare.util.Color;
 import com.draglantix.flare.util.FBO;
+import com.draglantix.flare.util.Functions;
+import com.draglantix.flare.util.Timer;
 import com.draglantix.flare.window.Window;
 import com.draglantix.main.Assets;
 import com.draglantix.utils.DragonMath;
@@ -28,10 +35,26 @@ public class PlayState extends GameState {
 	
 	private Source campfire;
 	
+	private float musicVolume = 1f;
+	
+	public static int lightBar = 40;
+	
+	public static Vector2f campfireLoc = new Vector2f(160, 56);
+	public static List<WoodItem> wood = new ArrayList<WoodItem>();
+	
+	private Timer timer;
+	private float passed = 0f;
+	
+	private boolean fireDead = false;
+	
+	public static boolean dead = false, drawDeathMsg = false;
+	
+	private Ethuzhi en;
+	
 	public PlayState(Graphics g, GameStateManager gsm) {
 		super(g, gsm);
 		Assets.world.init(g);
-		player = new Player(Assets.sheep, new Vector2f(0, 0), new Vector2f(16, 16));
+		player = new Player(Assets.IplayerDAnim, new Vector2f(0, 0), new Vector2f(16, 16));
 		EntityManager.dynamics.add(player);
 		
 		light = new FBO(Window.getWidth(), Window.getHeight());
@@ -42,11 +65,54 @@ public class PlayState extends GameState {
 		campfire.setVolume(0.1f);
 		campfire.play(Assets.campfireSFX);
 		AudioMaster.sources.add(campfire);
+		
+		float width = WorldConfig.WORLD_SIZE.x * WorldConfig.TILE_SIZE.x;
+		float height = WorldConfig.WORLD_SIZE.y * WorldConfig.TILE_SIZE.y;
+		
+		for(int i = 0; i < 100; i++) {
+			WoodItem item = new WoodItem(Assets.sheep, new Vector2f((Functions.rand.nextFloat() * width) - width/2, (Functions.rand.nextFloat() * height) - height/2), new Vector2f(8, 8));
+			wood.add(item);
+			EntityManager.dynamics.add(item);
+		}
+		
+		en = new Ethuzhi(Assets.IenemyDAnim, new Vector2f((Functions.rand.nextFloat() * width) - width/2, (Functions.rand.nextFloat() * height) - height/2), new Vector2f(32, 32), player, g);
+		EntityManager.dynamics.add(en);
+		
+		timer = new Timer();
 	}
 
 	@Override
 	public void tick() {
 		
+		if(dead) {
+			player.setHealth(0);
+			en.setHealth(0);
+			wakeup = false;
+			if(vision == 0) {
+				drawDeathMsg = true;
+			}
+		}
+		
+		if(musicVolume > 0.2f) {
+			musicVolume -= 0.001f;
+			Assets.musicSource.setVolume(musicVolume);
+		}
+		
+		passed += timer.getDelta();
+		
+		if(passed > 1) {
+			lightBar --;
+			if(lightBar < 0) {
+				lightBar = 0;
+			}
+			passed = 0;
+		}
+		
+		if(lightBar == 0) {
+			fireDead = true;
+		}
+		
+		Assets.musicSource.setPosition(player.getPosition());
 		AudioMaster.setListenerData(player.getPosition());
 		
 		Assets.world.tick();
@@ -119,19 +185,36 @@ public class PlayState extends GameState {
 		Assets.world.render(g);
 
 		light.bindFrameBuffer();
-		g.clearColor(new Color(0, 0, 0, 0));
-		
-		Vector2f pos = new Vector2f(480, 150);
-		g.drawLight(pos, 600 + (int)(50 * Math.sin(Math.toRadians(sinIndex * 2))), new Color(255, 108, 50, 1f));
-		
+			
+			g.clearColor(new Color(0, 0, 0, 0));
+			if(!fireDead) {
+				Vector2f pos = new Vector2f(480, 150);
+				g.drawLight(pos, 600 + (int)(50 * Math.sin(Math.toRadians(sinIndex * 2))), new Color(255, 108, 50, 1f));
+			}
+			
 		light.unbindFrameBuffer();
 		
-		g.drawImage(Assets.fireAnim.getTexture(), new Vector2f(160, 56), new Vector2f(32, 32), new Vector2f(0, 0), new Color(255, 100, 50, 1));
+		if(!fireDead) {
+			g.drawImage(Assets.fireAnim.getTexture(), campfireLoc, new Vector2f(32, 32), new Vector2f(0, 0), new Color(255, 100, 50, 1));
+		}
 		
 		g.drawMode(g.DRAW_SCREEN);
 		g.drawImage(light.getColorTexture(), new Vector2f(0, 0), new Vector2f(Window.getWidth()/g.getScale() + 3, -Window.getHeight()/g.getScale() - 3), new Vector2f(0, 0), new Color(255, 255, 255, 0.86f));
 		//g.drawImage(Assets.border, new Vector2f(0, 0), new Vector2f(Window.getWidth()/g.getScale() + 3, Window.getHeight()/g.getScale() + 3), new Vector2f(0, 0), new Color(255, 255, 255, 0.5f));
 		g.drawImage(Assets.dark, new Vector2f(0, 0), new Vector2f(Window.getWidth()/g.getScale() + 3, Window.getHeight()/g.getScale() + 3), new Vector2f(0, 0), new Color(255, 255, 255, vision));
+		String hud = "Wood " + player.wood;
+		if(player.wood >= 5) {
+			hud = hud + " (You can carry no more!)";
+		}
+		g.drawString(Assets.font, hud, new Vector2f(-(Window.getWidth()/2/g.getScale()) + 10, -(Window.getHeight()/2/g.getScale()) + 10), new Vector2f(4, 4), new Color(255, 255, 255, 1), g.FONT_LEFT);
+		g.drawImage(Assets.bar, new Vector2f((Window.getWidth()/2/g.getScale()) - 30, -(Window.getHeight()/2/g.getScale()) + 10), new Vector2f(lightBar, 4), new Vector2f(0, 0), new Color(255, 255, 255, 1));
+		g.drawString(Assets.font, "Fuel Remaining:", new Vector2f((Window.getWidth()/2/g.getScale()) - 50, -(Window.getHeight()/2/g.getScale()) + 10), new Vector2f(4, 4), new Color(255, 255, 255, 1), g.FONT_RIGHT);
+		
+		if(drawDeathMsg) {
+			g.drawString(Assets.font, "You have vanished from life without a trace...", new Vector2f(0, 0), new Vector2f(8, 8), new Color(255, 0, 0, 1), g.FONT_CENTER);
+			g.drawString(Assets.font, "Press Escape to Quit.", new Vector2f(0, -16), new Vector2f(4, 4), new Color(255, 0, 0, 1), g.FONT_CENTER);
+		}
+	
 	}
 
 	public void updateCamera() {

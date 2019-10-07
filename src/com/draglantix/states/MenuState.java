@@ -66,6 +66,8 @@ public class MenuState extends GameState {
 		g.drawString(Assets.font, "Start", new Vector2f(0, 0), new Vector2f(6, 6), new Color(255, 255, 255, alpha), g.FONT_CENTER);
 		g.drawString(Assets.font, "Quit", new Vector2f(0, -32), new Vector2f(6, 6), new Color(255, 255, 255, alpha), g.FONT_CENTER);
 		g.drawImage(Assets.selector, selectorPos[current], new Vector2f(8, 8), new Vector2f(0, 0), new Color(255, 255, 255, alpha));
+		g.drawImage(Assets.titlecampfire, new Vector2f(100, -35), new Vector2f(28, 28), new Vector2f(0, 0), new Color(255, 255, 255, alpha));
+		g.drawImage(Assets.fireAnim.getTexture(), new Vector2f(100, -16), new Vector2f(64, 64), new Vector2f(0, 0), new Color(255, 100, 50, alpha));
 	}
 
 }

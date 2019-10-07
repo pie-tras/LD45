@@ -13,7 +13,6 @@ import com.draglantix.main.Assets;
 import com.draglantix.tiles.Tile;
 import com.draglantix.tiles.TileData;
 import com.draglantix.tiles.TileMap;
-import com.draglantix.utils.Debug;
 import com.draglantix.utils.DragonMath;
 
 public class World {
@@ -84,7 +83,7 @@ public class World {
 		for(Tile t: activeTiles) {
 			t.render(g);
 			if(t.getBounds() != null) {
-				Debug.renderBounds(t.getBounds(), g);
+				//Debug.renderBounds(t.getBounds(), g);
 			}
 		}
 	}
