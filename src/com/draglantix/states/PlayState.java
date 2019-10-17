@@ -42,8 +42,8 @@ public class PlayState extends GameState {
 	public static Vector2f campfireLoc = new Vector2f(160, 56);
 	public static List<WoodItem> wood = new ArrayList<WoodItem>();
 	
-	private Timer timer;
-	private float passed = 0f;
+	private Timer timer, timer2;
+	private float passed = 0f, passed2;
 	
 	private boolean fireDead = false;
 	
@@ -69,16 +69,24 @@ public class PlayState extends GameState {
 		float width = WorldConfig.WORLD_SIZE.x * WorldConfig.TILE_SIZE.x;
 		float height = WorldConfig.WORLD_SIZE.y * WorldConfig.TILE_SIZE.y;
 		
-		for(int i = 0; i < 100; i++) {
-			WoodItem item = new WoodItem(Assets.sheep, new Vector2f((Functions.rand.nextFloat() * width) - width/2, (Functions.rand.nextFloat() * height) - height/2), new Vector2f(8, 8));
-			wood.add(item);
-			EntityManager.dynamics.add(item);
-		}
+		genWood();
 		
 		en = new Ethuzhi(Assets.IenemyDAnim, new Vector2f((Functions.rand.nextFloat() * width) - width/2, (Functions.rand.nextFloat() * height) - height/2), new Vector2f(32, 32), player, g);
 		EntityManager.dynamics.add(en);
 		
 		timer = new Timer();
+		timer2 = new Timer();
+	}
+	
+	public void genWood() {
+		float width = WorldConfig.WORLD_SIZE.x * WorldConfig.TILE_SIZE.x;
+		float height = WorldConfig.WORLD_SIZE.y * WorldConfig.TILE_SIZE.y;
+		
+		for(int i = 0; i < 200; i++) {
+			WoodItem item = new WoodItem(Assets.log, new Vector2f((Functions.rand.nextFloat() * width) - width/2, (Functions.rand.nextFloat() * height) - height/2), new Vector2f(8, 8));
+			wood.add(item);
+			EntityManager.dynamics.add(item);
+		}
 	}
 
 	@Override
@@ -91,6 +99,13 @@ public class PlayState extends GameState {
 			if(vision == 0) {
 				drawDeathMsg = true;
 			}
+		}
+		
+		passed2 += timer2.getDelta();
+		
+		if(passed2 > 100) {
+			genWood();
+			passed2 = 0;
 		}
 		
 		if(musicVolume > 0.2f) {

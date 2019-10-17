@@ -23,7 +23,7 @@ public class SplashState extends GameState {
 
 	@Override
 	public void render() {
-		g.drawImage(Assets.sheep, new Vector2f(0, 0), new Vector2f(16, 16), new Vector2f(0, 0),
+		g.drawImage(Assets.log, new Vector2f(0, 0), new Vector2f(16, 16), new Vector2f(0, 0),
 				new Color(0, 255, 255, 1));
 	}
 

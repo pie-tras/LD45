@@ -5,6 +5,7 @@ import org.lwjgl.glfw.GLFW;
 
 import com.draglantix.flare.textures.Animation;
 import com.draglantix.flare.util.Functions;
+import com.draglantix.flare.util.Timer;
 import com.draglantix.flare.window.Window;
 import com.draglantix.main.Assets;
 import com.draglantix.states.PlayState;
@@ -20,11 +21,15 @@ public class Player extends Dynamic{
 	
 	public int wood = 0;
 	
+	private float sprint = 0f;
+	private Timer timerSprint;
+	
 	public Player(Animation animation, Vector2f position, Vector2f scale) {
 		super(animation, position, scale, new Vector2f(4, 2));
 		setSpeed(1f);
 		source.setPitch(1f);
 		source.setVolume(0.5f);
+		timerSprint = new Timer();
 	}
 
 	@Override
@@ -72,6 +77,10 @@ public class Player extends Dynamic{
 			}
 		}
 		
+		if(sprinting) {
+			sprint += timerSprint.getDelta();
+		}
+		
 		if(Window.getInput().isKeyPressed(GLFW.GLFW_KEY_K)) {
 			setSpeed(1.5f);
 			source.setVolume(1f);
@@ -79,11 +88,12 @@ public class Player extends Dynamic{
 			sprinting = true;
 		}
 		
-		if(Window.getInput().isKeyReleased(GLFW.GLFW_KEY_K)) {
+		if(Window.getInput().isKeyReleased(GLFW.GLFW_KEY_K) || sprint > 10) {
 			setSpeed(0.5f);
 			source.setVolume(1f);
 			source.setPitch(1f);
 			sprinting = false;
+			sprint = 0;
 		}
 	
 		handleAnimations();

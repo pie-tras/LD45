@@ -14,7 +14,7 @@ public class IntroState extends GameState {
 	private boolean fadeIn = false;
 	private int finished = 0;
 	
-	private String message = "Bewhare of what lurks in the shadows";
+	private String message = "Beware of what lurks in the shadows";
 
 	public IntroState(Graphics g, GameStateManager gsm) {
 		super(g, gsm);
@@ -52,7 +52,7 @@ public class IntroState extends GameState {
 		if(finished == 0) {
 			g.drawImage(Assets.logoAnim.getTexture(), new Vector2f(0, 0), new Vector2f(128, 128), new Vector2f(0, 0), new Color(255, 255, 255, alpha));
 		}else {
-			g.drawString(Assets.font, message, new Vector2f(0, 0), new Vector2f(6, 6), new Color(255, 200, 200, alpha), g.FONT_CENTER);
+			g.drawString(Assets.font, message, new Vector2f(0, 0), new Vector2f(6, 6), new Color(255, 255, 255, alpha), g.FONT_CENTER);
 		}
 	}
 

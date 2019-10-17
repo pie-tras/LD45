@@ -37,12 +37,14 @@ public class Ethuzhi extends Dynamic{
 				position.add(toPlayer);
 				if(position.distance(player.getPosition()) < 60) {
 					position = new Vector2f((Functions.rand.nextFloat() * width) - width/2, (Functions.rand.nextFloat() * height) - height/2);
+					source.play(Assets.scream);
 				}
 			}
 		}else {
 			position.add(toPlayer);
 			if(position.distance(player.getPosition()) < 10) {
 				PlayState.dead = true;
+				source.play(Assets.scream);
 			}
 		}
 		

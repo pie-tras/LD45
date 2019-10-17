@@ -17,7 +17,7 @@ public class Assets {
 	public static Camera camera;
 	public static Font font;
 
-	public static Texture sheep;
+	public static Texture log;
 
 	public static SpriteSheet tiles;
 
@@ -37,7 +37,7 @@ public class Assets {
 	
 	public static int darkloop;
 	
-	public static int campfireSFX, steps1, steps2, steps3;
+	public static int campfireSFX, steps1, steps2, steps3, scream;
 	
 	public static Source musicSource;
 	
@@ -63,7 +63,7 @@ public class Assets {
 		g.setCamera(camera);
 		g.setScale(3);
 
-		sheep = new Texture("textures/sheep.png");
+		log = new Texture("textures/log.png");
 
 		tiles = new SpriteSheet("textures/tiles.png");
 		grass = new Texture(tiles.crop(new Vector2f(0, 0), new Vector2f(16, 16)));
@@ -108,6 +108,7 @@ public class Assets {
 		steps1 = AudioMaster.loadSound("sfx/steps1.wav");
 		steps2 = AudioMaster.loadSound("sfx/steps2.wav");
 		steps3 = AudioMaster.loadSound("sfx/steps3.wav");
+		scream = AudioMaster.loadSound("sfx/scream.wav");
 		
 		musicSource = new Source(1.5f, 1000, 0);
 		musicSource.setLooping(true);
